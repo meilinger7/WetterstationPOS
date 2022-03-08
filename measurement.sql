@@ -1,6 +1,3 @@
-# TODO
-# table station (id, name, altitude, location)
-
 CREATE TABLE `measurement`
 (
     `id`          int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,

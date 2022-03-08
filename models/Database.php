@@ -2,10 +2,10 @@
 
 class Database
 {
-    private static $dbName = 'php42';
-    private static $dbHost = 'mysql';
+    private static $dbName = 'wetterstation';
+    private static $dbHost = 'localhost';
     private static $dbUsername = 'root';
-    private static $dbUserPassword = '123';
+    private static $dbUserPassword = '';
 
     private static $conn = null;
 

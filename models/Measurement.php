@@ -44,7 +44,7 @@ class Measurement implements DatabaseObject, JsonSerializable
      */
     public function create()
     {
-
+        // Nix brauchen
     }
 
     /**
@@ -52,7 +52,11 @@ class Measurement implements DatabaseObject, JsonSerializable
      */
     public function update()
     {
-
+        $db = Database::connect();
+        $sql = "UPDATE measurement set time = ?, temperature = ?, rain = ?, station_id = ? WHERE id = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute(array($this->time, $this->temperature, $this->rain, $this->station_id, $this->id));
+        Database::disconnect();
     }
 
     /**

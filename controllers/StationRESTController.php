@@ -35,7 +35,15 @@ class StationRESTController extends RESTController
      */
     private function handleGETRequest()
     {
-
+        if ($this->verb == null && sizeof($this->args) == 1) {
+            $model = Station::get($this->args[0]);  // single station
+            $this->response($model);
+        } else if ($this->verb == null && empty($this->args)) {
+            $model = Station::getAll();             // all staions
+            $this->response($model);
+        } else {
+            $this->response("Bad request", 400);
+        }
     }
 
     /**
@@ -43,7 +51,16 @@ class StationRESTController extends RESTController
      */
     private function handlePOSTRequest()
     {
+        $model = new Station();
+        $model->setName($this->getDataOrNull('name'));
+        $model->setAltitude($this->getDataOrNull('altitude'));
+        $model->setLocation($this->getDataOrNull('location'));
 
+        if ($model->save()) {
+            $this->response("OK", 201);
+        } else {
+            $this->response($model->getErrors(), 400);
+        }
     }
 
     /**
