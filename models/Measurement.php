@@ -44,7 +44,13 @@ class Measurement implements DatabaseObject, JsonSerializable
      */
     public function create()
     {
-        // Nix brauchen
+        $db = Database::connect();
+        $sql = "INSERT INTO measurement (time, temperature, rain, station_id) values(?, ?, ?, ?)";
+        $stmt = $db->prepare($sql);
+        $stmt->execute(array($this->time, $this->temperature, $this->rain, $this->station_id));
+        $lastId = $db->lastInsertId();
+        Database::disconnect();
+        return $lastId;
     }
 
     /**
@@ -66,10 +72,35 @@ class Measurement implements DatabaseObject, JsonSerializable
      */
     public static function get($id)
     {
+        $db = Database::connect();
+        $sql = "SELECT * FROM measurement where id = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute(array($id));
+        $item = $stmt->fetchObject('Measurement');  // ORM
+
+
+        $sql = "SELECT * FROM station where id = ?";
+        $stmt = $db->prepare($sql);
+        $stmt->execute(array($item->station_id));
+        $item->station = $stmt->fetchObject('Station');  // ORM
+        Database::disconnect();
+        return $item !== false ? $item : null;
 
     }
 
     public static function getAll() {
+        $db = Database::connect();
+
+        $sql = "SELECT * FROM measurement ORDER BY time ASC";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+
+        // fetch all datasets (rows), convert to array of Credentials-objects (ORM)
+        $items = $stmt->fetchAll(PDO::FETCH_CLASS, 'Measurement');
+
+        Database::disconnect();
+        return $items;
 
     }
 

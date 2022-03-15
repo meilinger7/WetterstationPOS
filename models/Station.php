@@ -107,9 +107,10 @@ class Station implements DatabaseObject, JsonSerializable
     {
         try {
             $db = Database::connect();
-            $sql = "DELETE FROM station WHERE id = ?";
+            $sql = "DELETE FROM station WHERE id = :id";
             $stmt = $db->prepare($sql);
-            $stmt->execute(array($id));
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
             Database::disconnect();
             return true;    // success
         }catch (Exception $e) {

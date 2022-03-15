@@ -68,6 +68,30 @@ class StationRESTController extends RESTController
      */
     private function handlePUTRequest()
     {
+        if ($this->verb == null && sizeof($this->args) == 1) {
+
+            $model = Station::get($this->args[0]);
+
+            if ($model == null) {
+                $this->response("Not found", 404);
+            } else {
+                $model->setName($this->getDataOrNull('name'));
+                $model->setAltitude($this->getDataOrNull('altitude'));
+                $model->setLocation($this->getDataOrNull('location'));
+
+                if ($model->save()) {
+                    $this->response("OK");
+                } else {
+                    $this->response($model->getErrors(), 400);
+                }
+            }
+
+        } else {
+            $this->response("Not Found", 404);
+        }
+
+
+
 
     }
 
@@ -76,6 +100,13 @@ class StationRESTController extends RESTController
      */
     private function handleDELETERequest()
     {
+        if ($this->verb == null && sizeof($this->args) == 1) {
+            
+            Station::delete($this->args[0]);
+            $this->response("OK" . strval($this->args[0]));
+        } else {
+            $this->response("Not Found", 404);
+        }
 
     }
 
