@@ -38,10 +38,14 @@ class StationRESTController extends RESTController
         if ($this->verb == null && sizeof($this->args) == 1) {
             $model = Station::get($this->args[0]);  // single station
             $this->response($model);
+        }else if ($this->verb == null && $this->args[1] == "measurement") {
+            $model = Measurement::getAllByStation($this->args[0]);             // all messwerte from Station 
+            $this->response($model);
         } else if ($this->verb == null && empty($this->args)) {
             $model = Station::getAll();             // all staions
             $this->response($model);
-        } else {
+        }
+         else {
             $this->response("Bad request", 400);
         }
     }

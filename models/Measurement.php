@@ -9,7 +9,7 @@ class Measurement implements DatabaseObject, JsonSerializable
     private $time;
     private $temperature;
     private $rain;
-    private $station_id;   // ID of station
+    private $station_id;
     private $station;      // ORM of station
 
     private $errors = [];
@@ -111,7 +111,16 @@ class Measurement implements DatabaseObject, JsonSerializable
      */
     public static function getAllByStation($station_id)
     {
+        $db = Database::connect();
 
+        $sql = "SELECT * FROM measurement where station_id = ?";
+
+        $stmt = $db->prepare($sql);
+        $stmt->execute(array($station_id));
+        $items = $stmt->fetchAll(PDO::FETCH_CLASS, 'Measurement');
+        
+        Database::disconnect();
+        return $items;
     }
 
     /**
@@ -120,6 +129,18 @@ class Measurement implements DatabaseObject, JsonSerializable
      */
     public static function delete($id)
     {
+        try {
+            $db = Database::connect();
+            $sql = "DELETE FROM measurement WHERE id = :id";
+            $stmt = $db->prepare($sql);
+            $stmt->bindParam9(':id', $id, PDO::PARAM_INT);
+            $stmt->execute();
+            Database::disconnect();
+            return true;    // success
+        }catch (Exception $e) {
+            Database::disconnect();
+            return false;   // error
+        }
 
     }
 
@@ -211,4 +232,72 @@ class Measurement implements DatabaseObject, JsonSerializable
         return $data;
     }
 
+
+
+
+
+
+
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of time
+     *
+     * @return  self
+     */ 
+    public function setTime($time)
+    {
+        $this->time = $time;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of temperature
+     *
+     * @return  self
+     */ 
+    public function setTemperature($temperature)
+    {
+        $this->temperature = $temperature;
+
+        return $this;
+    }
+
+    
+
+    /**
+     * Set the value of rain
+     *
+     * @return  self
+     */ 
+    public function setRain($rain)
+    {
+        $this->rain = $rain;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of station_id
+     *
+     * @return  self
+     */ 
+    public function setStationId($station_id)
+    {
+        $this->station_id = $station_id;
+
+        return $this;
+    }
 }
