@@ -14,7 +14,5 @@
     <script src="/POS1_NEUN/WetterstationPOS/js/Chart.js"></script>
     <script src="/POS1_NEUN/WetterstationPOS/js/bootstrap.min.js"></script>
 
-
-
 </head>
 <body>
