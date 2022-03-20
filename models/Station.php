@@ -197,4 +197,41 @@ class Station implements DatabaseObject, JsonSerializable
     }
     
 
+
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+     /**
+     * Get the value of name
+     */ 
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Get the value of altitude
+     */ 
+    public function getAltitude()
+    {
+        return $this->altitude;
+    }
+
+    /**
+     * Get the value of location
+     */ 
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    
+
+   
 }

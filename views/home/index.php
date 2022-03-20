@@ -12,10 +12,7 @@
                 ?>
             </select>
             <button id="btnSearch" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Messwerte anzeigen</button>
-            <a class="btn btn-default" href="index.php?r=station/index"><span class="glyphicon glyphicon-pencil"></span> Messstationen bearbeiten</a>
-
-            <canvas id="chart" width="400" height="100"></canvas>
-
+            <a class="btn btn-default" href="index.php?r=station/index"><span class="glyphicon glyphicon-pencil"></span> Messstationen bearbeiten</a>           
         <br/>
 
         <table class="table table-striped table-bordered">
