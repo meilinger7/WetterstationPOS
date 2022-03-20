@@ -7,14 +7,14 @@
     <link rel="shortcut icon" href="css/favicon.ico" type="image/x-icon">
     <link rel="icon" href="css/favicon.ico" type="image/x-icon">
 
-    <link href="/php42/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/php42/css/index.css" rel="stylesheet">
+    <link href="/POS1_NEUN/WetterstationPOS/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/POS1_NEUN/WetterstationPOS/css/index.css" rel="stylesheet">
 
-    <script src="/php42/js/jquery.min.js"></script>
-    <script src="/php42/js/bootstrap.min.js"></script>
+    <script src="/POS1_NEUN/WetterstationPOS/js/jquery.min.js"></script>
+    <script src="/POS1_NEUN/WetterstationPOS/js/Chart.js"></script>
+    <script src="/POS1_NEUN/WetterstationPOS/js/bootstrap.min.js"></script>
 
-    <!--  TODO Einbinden von chart.js -->
-    <!--  TODO Einbinden von index.js -->
+
 
 </head>
 <body>

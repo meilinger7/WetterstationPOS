@@ -1386,6 +1386,8 @@ INSERT INTO `measurement` (`id`, `time`, `temperature`, `rain`, `station_id`) VA
 (2717, '2022-03-08 10:10:46', -1.7020702236351282, 0.26688137023419267, 2),
 (2718, '2022-03-08 10:10:46', 1.7782450804284267, 0.17760100045949315, 2);
 
+
+UPDATE measurement SET measurement.time = DATE_SUB(measurement.time,INTERVAL (measurement.id) SECOND) WHERE measurement.time = '2022-03-08 10:10:46';
 -- --------------------------------------------------------
 
 --
