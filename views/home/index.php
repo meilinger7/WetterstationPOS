@@ -4,18 +4,18 @@
     </div>
     <div class="row">
         <p class="form-inline">
-            <select class="form-control" name="station_id" style="width: 200px">
+            <select id="stationId" class="form-control" name="station_id" style="width: 200px">
                 <?php
                 foreach ($model as $station) :
-                    echo '<option value="' . $station->getId() . '">' . $station->getName() . '</option>';
+                    echo '<option  value="' . $station->getId() . '">' . $station->getName() . '</option>';
                 endforeach;
                 ?>
             </select>
             <button id="btnSearch" onclick="loadChart()" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Messwerte anzeigen</button>
             <a class="btn btn-default" href="index.php?r=station/index"><span class="glyphicon glyphicon-pencil"></span> Messstationen bearbeiten</a>
             <br />
-        <div style="width:700px">
-            <canvas id="myChart" width="400" height="400"></canvas>
+        <div>
+            <canvas id="myChart" width="1200" height="600"></canvas>
         </div>
 
         <table class="table table-striped table-bordered">
@@ -39,13 +39,25 @@
     var rain = [];
 
     function loadChart() {
-        $.get("api.php?r=/station/2/measurement", function(data) {
+        var staionId = $("#stationId").val();
+        console.log(staionId);
+        $.get("api.php?r=/station/" + staionId + "/measurement", function(data) {
 
-            $.each(data, function(index, measurements) {
-                temperature.push(measurements.temperature);
-                time.push(measurements.time);
-                rain.push(measurements.rain);
-            });
+            // $.each(data, function(index, measurements) {
+            //     temperature.push(measurements.temperature);
+            //     time.push(measurements.time);
+            //     rain.push(measurements.rain);
+            // });
+
+            for (let i = 0; i <= 25; i++) {
+                temperature.push(data[i].temperature);
+                time.push(data[i].time);
+                rain.push(data[i].rain);
+            }
+
+            if (myChart != null) {
+                myChart.destroy();
+            }
 
             console.log(temperature[0]);
 
@@ -55,12 +67,14 @@
                 data: {
                     labels: time,
                     datasets: [{
-                        label: 'Temperatur in °C',
-                        data: temperature,
-                        label: 'rain in °C',
-                        data: rain
-                    }]
-                    
+                            label: 'Temperatur in °C',
+                            data: temperature
+                        },
+                        {
+                            label: 'Regen in cm',
+                            data: rain
+                        }
+                    ]
                 },
                 options: {
                     scales: {
@@ -70,6 +84,9 @@
                     }
                 }
             });
+            temperature = [];
+            time = [];
+            rain = [];
         });
     }
 </script>
