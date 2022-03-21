@@ -13,6 +13,7 @@
     <script src="/POS1_NEUN/WetterstationPOS/js/jquery.min.js"></script>
     <script src="/POS1_NEUN/WetterstationPOS/js/Chart.js"></script>
     <script src="/POS1_NEUN/WetterstationPOS/js/bootstrap.min.js"></script>
+    <script src="/POS1_NEUN/WetterstationPOS/js/index.js" ></script>
 
 </head>
 <body>
