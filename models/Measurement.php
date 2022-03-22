@@ -300,4 +300,20 @@ class Measurement implements DatabaseObject, JsonSerializable
 
         return $this;
     }
+
+    public function getId(){
+        return $this->id;
+    }
+
+    public function getTime(){
+        return $this->time;
+    }
+
+    public function getTemperature(){
+        return $this->temperature;
+    }
+
+    public function getRain(){
+        return $this->rain;
+    }
 }
