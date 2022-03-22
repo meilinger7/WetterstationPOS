@@ -133,7 +133,7 @@ class Measurement implements DatabaseObject, JsonSerializable
             $db = Database::connect();
             $sql = "DELETE FROM measurement WHERE id = :id";
             $stmt = $db->prepare($sql);
-            $stmt->bindParam9(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
             $stmt->execute();
             Database::disconnect();
             return true;    // success
